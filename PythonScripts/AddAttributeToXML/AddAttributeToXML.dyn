@@ -1,0 +1,255 @@
+{
+  "Uuid": "ab48a44d-a464-4a74-ad95-3d2197e2f083",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "AddAttributeToXML",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"1\",\"2\",\"3\"];",
+      "Id": "6ed4eb1f4f4c4c40acd1571cc9ecf362",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "47598d9af1b744d79e5823a0f72763cd",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\n\r\nsys.path.append('C:\\Program Files\\Autodesk\\Revit 2020\\AddIns\\DynamoForRevit')\r\nimport xml.etree.ElementTree as ET\r\n\r\n# z IN[0] načítám xml typu svg\r\nuniStr = IN[0]\r\ntree = ET.ElementTree(ET.fromstring(uniStr))\r\nroot = tree.getroot()\r\nsvg = root.getchildren()[0]\r\ni=0\r\nfor g in svg:\r\n\tpolygons = g.iter(\"polygon\")\r\n\t#projíždím všechny polygony\r\n\tfor polygon in polygons:\r\n\t\t#do polygonu přidávám atribut title a id\r\n\t\tpolygon.set(\"title\",IN[2][i])\r\n\t\tpolygon.set(\"id\",IN[1][i])\r\n\t\ti=i+1\r\n\r\n#zpětně přečtu, co je zapsáno v xml\r\nlist = []\r\nfor g in svg:\r\n\tpolygons = g.iter(\"polygon\")\r\n\tfor polygon in polygons:\r\n\t\tlist.append(polygon.attrib)\r\n\t\r\n#uloží změněné xml do souboru\r\n#tree.write(\"C:\\Test\\output.xml\",xml_declaration=True,encoding='utf-8')\r\nOUT = ET.tostring(root,'utf-8','xml')",
+      "VariableInputPorts": true,
+      "Id": "cd29aa32b1db49e8ba8cb25a528f9964",
+      "Inputs": [
+        {
+          "Id": "4b10c0914792439c84d2d6f55e12eb30",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "59b14cb32646417bacdd8078321feb97",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c5b2c1e98a1a486197a426a8163c11bb",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "365a1f542c0c417da7c3d8a7bd3d03f6",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "svgtext;",
+      "Id": "1a326e71866146e9a097862756f4fb17",
+      "Inputs": [
+        {
+          "Id": "b53bfadace5c4b5e9f0d99c708f7aa63",
+          "Name": "svgtext",
+          "Description": "svgtext",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "97b3a170def846269a0dbc73bb9028bc",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"a\",\"b\",\"c\"];",
+      "Id": "858489ba1d22468da7790b0b6c2787c1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e205d2a151154110bb19803c29da6c29",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "<?xml version=\"1.0\"?>\n<svg height=\"210\" width=\"500\">\n<g>\n  <polygon points=\"200,10 250,190 160,210\" style=\"fill:lime;stroke:purple;stroke-width:1\" /> \n  <polygon points=\"200,10 250,190 160,210\" style=\"fill:lime;stroke:purple;stroke-width:1\" />\n  <polygon points=\"200,10 250,190 160,210\" style=\"fill:lime;stroke:purple;stroke-width:1\" />\n</g>\n</svg>",
+      "Id": "0d4f06c00ba344218def25c1d1c7d746",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "23cd12fcd78c4ef09b4ee1327493cd23",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "47598d9af1b744d79e5823a0f72763cd",
+      "End": "59b14cb32646417bacdd8078321feb97",
+      "Id": "10c2f73b6e6a43189db65e0386c4100f"
+    },
+    {
+      "Start": "365a1f542c0c417da7c3d8a7bd3d03f6",
+      "End": "b53bfadace5c4b5e9f0d99c708f7aa63",
+      "Id": "243a0b308fcf4bb18dadc706041bcaa8"
+    },
+    {
+      "Start": "e205d2a151154110bb19803c29da6c29",
+      "End": "c5b2c1e98a1a486197a426a8163c11bb",
+      "Id": "66c7aad613334b94b779bc93b6b196ef"
+    },
+    {
+      "Start": "23cd12fcd78c4ef09b4ee1327493cd23",
+      "End": "4b10c0914792439c84d2d6f55e12eb30",
+      "Id": "d21471c3730b4d1aa1a383fe30d2135c"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "ids",
+        "Id": "6ed4eb1f4f4c4c40acd1571cc9ecf362",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 141.60532841497741,
+        "Y": 232.48218713873479
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "cd29aa32b1db49e8ba8cb25a528f9964",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 371.38723668999353,
+        "Y": 214.17606360916722
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "1a326e71866146e9a097862756f4fb17",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 572.83431435706882,
+        "Y": 221.29920488540998
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "titles",
+        "Id": "858489ba1d22468da7790b0b6c2787c1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 143.38572022638857,
+        "Y": 428.00624630374966
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "xml",
+        "Id": "0d4f06c00ba344218def25c1d1c7d746",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 72.329861276985525,
+        "Y": -97.112343671006442
+      }
+    ],
+    "Annotations": [],
+    "X": 44.990642763469168,
+    "Y": 78.713027457397459,
+    "Zoom": 0.8033215934625979
+  }
+}

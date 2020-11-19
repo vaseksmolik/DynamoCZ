@@ -1,0 +1,143 @@
+{
+  "Uuid": "ab48a44d-a464-4a74-ad95-3d2197e2f083",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Room-GetBoundarySegments",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "",
+      "Id": "cb198fb4f7ff48f68a7825f1719be605",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\ndoc = DocumentManager.Instance.CurrentDBDocument;\r\n\r\nDYNroom = IN[0]\r\nroom = DYNroom.InternalElement\r\nopt = SpatialElementBoundaryOptions()\r\nbounds = room.GetBoundarySegments(opt)\r\nelements = []\r\nfor innerlist in bounds :\r\n\tfor bound in innerlist :\r\n\t\telements.append(doc.GetElement(bound.ElementId))\r\n\r\nOUT = elements",
+      "VariableInputPorts": true,
+      "Id": "7c1588c70bfb4fd880d72560ef3625fd",
+      "Inputs": [
+        {
+          "Id": "09780c6edf134b4fa80725f101e004ba",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a611d37a1434426ca50b9889ee54ccd2",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "6c1afe81-4d86-4b3d-8704-c8d234e19e22-000a2189"
+      ],
+      "Id": "24c126785180484e8368e327b9b6fc89",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9a6c693417f242218318b15d7858a061",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9a6c693417f242218318b15d7858a061",
+      "End": "09780c6edf134b4fa80725f101e004ba",
+      "Id": "cd59da8bce544090a707e0877ab7a63e"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "cb198fb4f7ff48f68a7825f1719be605",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 555.0,
+        "Y": 433.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "7c1588c70bfb4fd880d72560ef3625fd",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 209.6860094328332,
+        "Y": 401.10959025735463
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select room element",
+        "Id": "24c126785180484e8368e327b9b6fc89",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -3.8941047938695874,
+        "Y": 396.05802829849893
+      }
+    ],
+    "Annotations": [],
+    "X": 155.8317983180458,
+    "Y": 240.89608560937489,
+    "Zoom": 0.59376714062500013
+  }
+}
