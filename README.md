@@ -11,4 +11,6 @@ Skripty pro "Python code" nod - v úložišti vložené jako *\*.py* soubor. Sou
 DynamoRevit Package, které jsou importované jako knihovna a zobrazí se jako balíček nodů. Tento balíček obsahuje dll knihovny se zero-touch nody.  
 Balíček je také k dispozici přímo v DynamoRevit pod nástrojem ´Online Package Search´ pod názvem *DynamoCZ*.  
 **Návod k instalaci**  
->Složku DynamoCZ po přihlášení stáhněte a rozbalte do složky´%APPDATA%\Dynamo\Dynamo Revit\2.3\packages´ (C:\Users\*Jméno uživatele*\AppData\Dynamo\Dynamo Revit\*Verze*\packages)
+>Složku DynamoCZ po přihlášení stáhněte a rozbalte do složky  
+%APPDATA%\Dynamo\Dynamo Revit\2.3\packages  
+(C:\Users\*Jméno uživatele*\AppData\Dynamo\Dynamo Revit\*Verze*\packages)
