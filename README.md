@@ -1,7 +1,11 @@
 # DynamoCZ
-Sada pro DynamoRevit v českém prostředí
-`http://www.vaseksmolik.cz`
-`https://www.linkedin.com/in/v%C3%A1clav-smol%C3%ADk-38158b49/`
+Sada pro DynamoRevit v českém prostředí.
+
+- **PythonScripts** : skripty pro "Python code" nod - v úložišti vložené jako
+- **ZeroTouchNode** : Zero-touch nody, které jsou importované jako knihovna a zobrazí se jako balíček nodů
+
+[vaseksmolik.cz](http://www.vaseksmolik.cz)  
+[linked-in](https://www.linkedin.com/in/václav-smolík-38158b49/)
 
 Pokud máte zájem o vytvoření skriptu, add-inu, dynamo nodu nebo konzultace - ozvěte se mi prostřednictvím formuláře na webu.
 
@@ -12,9 +16,8 @@ Python skripty
 > po přihlášení 
 
 
-
 např.:
-**Room-GetBoundarySegments**
+> **Room-GetBoundarySegments**
 > Zjistí hraniční segmenty místnosti
 
 **Room-GetBoundarySegments**
