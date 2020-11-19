@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+  <assembly>
+    <name>archilab</name>
+  </assembly>
+    <namespaces>
+      <namespace name="DynamoCZ">
+        <category>DynamoCZ</category>
+      </namespace>
+    </namespaces>
+</doc>

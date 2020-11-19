@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DynamoCZ</name>
+    </assembly>
+    <members>
+        <member name="M:DynamoCZ.DataExport.ExportRoomToGeoJson(System.Collections.Generic.List{Revit.Elements.Room},System.Collections.Generic.List{System.String})">
+            <summary>
+            Exportuje TopoJSON.
+            </summary>
+            <param name="path">Umístění a název souboru. Např C:\Temp\test.json</param>
+            <param name="rooms">Místnosti pro export.</param>
+        </member>
+        <member name="M:DynamoCZ.DataExport.ZformatujDataProExport(System.Collections.Generic.List{Revit.Elements.Element},System.Collections.Generic.List{System.String})">
+            <summary>
+            Nod zjistí parametry objektů a zapíše je přehledně do řádků podle vstupních elementů. Výstupní informace lze nadále použít např. pro export / import do csv nebo xls souborů.
+            </summary>
+            <param name="elements">Vstupní elementy</param>
+            <param name="parameterNames">Názvy "sloupců" - parametrů. Pokud parametr neexistuje nebo není přiřazený, bude příslušná buňka prázdná.</param>
+            <returns>Data pro export.</returns>
+        </member>
+        <member name="M:DynamoCZ.Analyza.DetekujObvodoveSteny">
+            <summary>
+            Detekuje obvodové stěny objektu hraničící s exteriérem. Tento nod využívá metodu "vytvoření místnosti kolem objektu", kde jsou detekovány ohraničující konstrukce. Následně je místnost opět smazána.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.Analyza.NajdiHostovaneVyplne(System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            Najde všechny Výplně otvorů hostované na zadaných konstrukcích.
+            </summary>
+            <param name="materskeKonstrukce"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.Analyza.SectiObjemProstoru">
+            <summary>
+            Detekuje prostory v objektu a sečte jejich objem.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.GetOutermostWalls.MetodaOhranicujiciMistnosti(Autodesk.Revit.DB.Document)">
+            <summary>
+            
+            </summary>
+            <param name="doc"></param>
+            <param name="view">视图,</param>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.GetOutermostWalls.DetermineAdjacentElementLengthsAndWallAreas(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.Architecture.Room)">
+            <summary>
+            
+            </summary>
+            <param name="doc"></param>
+            <param name="room"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.Izolace.ZjistiPovrchPotrubi(System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            Zjistí povrch potrubí včetně tvarovek.
+            </summary>
+            <param name="elements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.Izolace.ZjistiVnejsiPovrchIzolacePotrubi(System.Collections.Generic.List{Revit.Elements.Element})">
+            <summary>
+            Zjistí povrch izolace potrubí včetně tvarovek.
+            </summary>
+            <param name="elements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.Pohledy.VytvorRozvinutyRez(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Line},System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Vytvoří řezy z vybraných křivek.
+            </summary>
+        </member>
+        <member name="T:DynamoCZ.TepelneZtratyObalkovouMetodou">
+            <summary>
+            Výpočet podle ČSN EN 12 831-1
+            </summary>
+        </member>
+        <member name="M:DynamoCZ.TepelneZtratyObalkovouMetodou.Celkem(System.Double,System.Double,System.Double)">
+            <summary>
+             Výpočet tepelné ztráty budovy podle ČSN EN 12 831-1
+            </summary>
+            <param name="tepelnaZtrataProstupem"></param>
+            <param name="tepelnaZtrataVetranim"></param>
+            <param name="tepelnyZisk"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DynamoCZ.TepelneZtratyObalkovouMetodou.Vetranim(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Výpočet tepelné ztráty větráním podle ČSN EN 12 831-1 <c>{Qv = (Vmin*r*c) * (qi-qe) * (1-n)}</c>
+            </summary>
+            <param name="teplotaInterier">Návrhová teplota v interiéru [C]</param>
+            <param name="teplotaExterier">Teplota exteriéru [C]</param>
+            <param name="objemBudovy">Objem vzduchu v budově [m^2]</param>
+            <param name="ucinnostRekuperace">účinnost zpětného zisku tepla [-] (Bez rekuperace tepla = 0)</param>
+            <param name="intenzitaVetrani">intenzita výměny vzduchu [1/h] (Běžně = 0,4 ; Minimálně = 0,3 ; u netěsných staveb = 1 i více.)</param>
+            <returns>Tepelná ztráta přirozeným větráním [W]</returns>
+        </member>
+        <member name="M:DynamoCZ.TepelneZtratyObalkovouMetodou.Prostupem(System.Collections.Generic.List{System.Collections.Generic.List{System.String}},System.Double)">
+            <summary>
+            Výpočet tepelné ztráty prostupem podle ČSN EN 12 831-1 {QT = SUM(Sk*Uk) * (qi-qe)}
+            </summary>
+            <param name="dataKonstrukci"></param>
+            <param name="soucLinTepMostu">Součinitel lineárních tepelných mostů, vztažený na ochlazovanou plochu [W/m2K] (konstrukce téměř bez tepelných mostů = 0,02 ; s mírnými tepelnýmy mosty = 0,05 ; a běžnými tepelnými mosty = 0,10 ; s výraznými tepelnými mosty = 0,15 )</param>
+            <returns>Tepelná ztráta prostupem [W]</returns>
+        </member>
+    </members>
+</doc>
