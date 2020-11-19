@@ -1,6 +1,7 @@
 # DynamoCZ
 Sada pro DynamoRevit v českém prostředí.  
-Sada byla vytvořena Václavem Smolíkem za pomoci zpětné vazby BIM expertů. Za podporu budu velice rád nejlépe formou zpětné vazby nebo nabídky užší spolupráce. Více na webech  
+Sada byla vytvořena Václavem Smolíkem za pomoci zpětné vazby BIM expertů.  
+Za podporu budu velice rád nejlépe formou zpětné vazby nebo nabídky užší spolupráce. Více na webech  
 [vaseksmolik.cz](http://www.vaseksmolik.cz)  
 [linked-in](https://www.linkedin.com/in/václav-smolík-38158b49/)
 # Obsah
