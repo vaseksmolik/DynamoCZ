@@ -6,7 +6,6 @@
 
 import re
 
-#Text, which you want to replace in input text
 # in this example "red, brown, yellow" will be replaced to "red, orange, yellow"
 DeletedTextFrom = 'brown'
 NewText = 'orange'
