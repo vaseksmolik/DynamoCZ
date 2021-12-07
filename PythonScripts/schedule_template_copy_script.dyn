@@ -1,0 +1,256 @@
+{
+  "Uuid": "ef14249e-7ff8-4407-808e-eead0ac4d4a5",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "schedule_template_copy_script",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\n\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n\r\n#######################################\r\n##### SCRIPT MADE BY VACLAV SMOLIK ####\r\n#######################################\r\n# WWW.BIMTWIN.CZ | WWW.VASEKSMOLIK.CZ #\r\n#######################################\r\n####### PLEASE DO NOT REMOVE ##########\r\n####### THIS TEXT FROM SCRIPT #########\r\n#######################################\r\n\r\ndoc = DocumentManager.Instance.CurrentUIDocument.Document;\r\nuiapp = DocumentManager.Instance.CurrentUIApplication\r\napp = uiapp.Application\r\n\r\n# Input\r\ntemplate_grid = UnwrapElement(IN[0])\r\nname = IN[1]\r\ntarget_grid = UnwrapElement(IN[2])\r\n\r\ntemplate_scheduleView = doc.GetElement(template_grid.ScheduleId)\r\ntarget_scheduleView = doc.GetElement(target_grid.ScheduleId)\r\n\r\ntemplate_definition = template_scheduleView.Definition\r\ntarget_definition = target_scheduleView.Definition\r\n\r\n# transaction\r\ntrans1 = Transaction(doc, 'Copy schedule template')\r\ntrans1.Start()\r\ntry:\r\n\ttarget_definition.ClearFields()\r\n\tfor field_id in template_definition.GetFieldOrder():\r\n\t\tfield = template_definition.GetField(field_id)\r\n\t\t\r\n\t\tfor new_schedulable_field in target_definition.GetSchedulableFields():\r\n\t\t\tif field.GetSchedulableField() == new_schedulable_field:\r\n\t\t\t\tnew_field = target_definition.AddField(new_schedulable_field)\t\r\n\t\t\t\tnew_field.GridColumnWidth = field.GridColumnWidth\t\r\n\r\n\ttarget_scheduleView.Name = name\r\n\ttrans1.Commit()\r\n\tOUT = target_grid\r\n\t\r\nexcept Exception as e:\r\n\ttrans1.RollBack()\r\n\traise e\r\n",
+      "VariableInputPorts": true,
+      "Id": "a86a1dde95004c6bae09bf422018c56e",
+      "Inputs": [
+        {
+          "Id": "8f074a7f0f2c4ca2bff149a9e0f63dea",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4e5210ad09d6482b98864fc6f24e5f89",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4fc61fc192d7452b8c19aa9d25571fbc",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3bd238b961aa48b980b7aaedc9c745b7",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "39a61db8-59ff-4ee8-83c0-5c19c72c3235-00031ede"
+      ],
+      "Id": "7b2c440e39314c91b9870aeeb091bb99",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a74f3b1f16c44693bceea7ad76f0f106",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "Name",
+      "Id": "1e986bf071f24bf1b1ff082e7916b241",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "aa2850aeddd54c08a0211910873a1c0a",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "39a61db8-59ff-4ee8-83c0-5c19c72c3235-00031f00"
+      ],
+      "Id": "6ae1c789d8924a118458cf3037cb0340",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "342d2d90af1a49b9b3df51cadf038976",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "c900ff7f46df429180c5dac621ad4cec",
+      "Inputs": [
+        {
+          "Id": "389250dcc5df46018dd3a6165e927fc0",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8fc233fe6dca44b09edc35b9a7e8a0f2",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "3bd238b961aa48b980b7aaedc9c745b7",
+      "End": "389250dcc5df46018dd3a6165e927fc0",
+      "Id": "9183df2af8fd41eabe4acc3aabf20958"
+    },
+    {
+      "Start": "a74f3b1f16c44693bceea7ad76f0f106",
+      "End": "8f074a7f0f2c4ca2bff149a9e0f63dea",
+      "Id": "c00c1303d6d841e0945a309536a6c80c"
+    },
+    {
+      "Start": "aa2850aeddd54c08a0211910873a1c0a",
+      "End": "4e5210ad09d6482b98864fc6f24e5f89",
+      "Id": "8a1c11258d8d41c79c45f76a53549306"
+    },
+    {
+      "Start": "342d2d90af1a49b9b3df51cadf038976",
+      "End": "4fc61fc192d7452b8c19aa9d25571fbc",
+      "Id": "bd59117e143c45b3b04aebd57307e116"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "a86a1dde95004c6bae09bf422018c56e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 337.5,
+        "Y": 170.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Template schedule",
+        "Id": "7b2c440e39314c91b9870aeeb091bb99",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 66.5,
+        "Y": 73.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Name",
+        "Id": "1e986bf071f24bf1b1ff082e7916b241",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 84.5,
+        "Y": 199.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Target schedule",
+        "Id": "6ae1c789d8924a118458cf3037cb0340",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 70.5,
+        "Y": 311.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "c900ff7f46df429180c5dac621ad4cec",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 509.0,
+        "Y": 170.0
+      }
+    ],
+    "Annotations": [],
+    "X": 23.508865244609183,
+    "Y": 55.081413252865957,
+    "Zoom": 0.82770257044119022
+  }
+}
